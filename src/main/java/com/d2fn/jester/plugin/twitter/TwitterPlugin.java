@@ -13,9 +13,7 @@ import org.apache.http.client.HttpClient;
  * @author Dietrich Featherston
  */
 public class TwitterPlugin implements Plugin {
-    
-    private HttpClient httpClient;
-    
+
     private TwitterClient twitter;
     
     public TwitterPlugin(HttpClient httpClient) {
@@ -49,7 +47,7 @@ public class TwitterPlugin implements Plugin {
                 if(twitter.isTweet(word)) {
                     try {
                         Tweet tweet = twitter.getTweet(word);
-                        String response = tweet.getUser().getName() + ": " + tweet.getText();
+                        String response = tweet.getUser().getScreenName() + ": " + tweet.getText();
                         bot.sendMessage(msg.getChannel(), response);
                     }
                     catch(Exception e) {
