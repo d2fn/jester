@@ -18,7 +18,7 @@ import java.util.List;
 public class TwitterClient {
 
     private static final String userBase = "http://api.twitter.com/1/users/lookup.json?include_entities=true&screen_name=";
-    private static final String statusBase = "https://statusBase.twitter.com/1/statuses/show/";
+    private static final String statusBase = "https://api.twitter.com/1/statuses/show/";
     private HttpClient httpClient;
     private Json json = new Json();
     
