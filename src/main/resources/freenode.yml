@@ -17,3 +17,6 @@ http_client:
 
   # don't track cookies
   cookiesEnabled: false
+
+bdb:
+    path: /srv/jester

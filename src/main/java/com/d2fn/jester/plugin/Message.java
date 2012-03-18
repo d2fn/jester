@@ -2,6 +2,7 @@ package com.d2fn.jester.plugin;
 
 import com.yammer.dropwizard.logging.Log;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -11,7 +12,7 @@ import java.util.List;
  * Message
  * @author Dietrich Featherston
  */
-public class Message {
+public class Message implements Serializable {
     
     private String channel;
     private String sender;
@@ -69,10 +70,7 @@ public class Message {
     }
     
     public boolean isCommand(String cmd) {
-        if(command != null && command.equalsIgnoreCase(cmd)) {
-            return true;
-        }
-        return false;
+        return command != null && command.equalsIgnoreCase(cmd);
     }
 
     public boolean hasArguments() {

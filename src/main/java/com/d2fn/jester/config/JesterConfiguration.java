@@ -30,6 +30,9 @@ public class JesterConfiguration extends Configuration {
     @JsonProperty
     private BotConfiguration bot;
 
+    @NotNull
+    @JsonProperty
+    private BdbConfiguration bdb;
 
     public String getProse() {
         return prose;
@@ -41,5 +44,9 @@ public class JesterConfiguration extends Configuration {
 
     public HttpClientConfiguration getHttpClientConfiguration() {
         return httpClient;
+    }
+    
+    public BdbConfiguration getBdbConfiguration() {
+        return bdb;
     }
 }
