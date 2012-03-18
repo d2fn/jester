@@ -30,7 +30,7 @@ public class RecallPlugin implements Plugin {
 
     @Override
     public void call(JesterBot bot, Message msg) throws Exception {
-        if(msg.isCommand("recall") && msg.hasArguments()) {
+        if(msg.isCommand("f") && msg.hasArguments()) {
             SavedLink link = recall(msg.getArguments().get(0));
             bot.sendMessage(msg.getChannel(), link.getUrl());
         }

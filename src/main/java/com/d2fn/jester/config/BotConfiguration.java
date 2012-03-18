@@ -21,6 +21,7 @@ public class BotConfiguration {
     @JsonProperty
     private String hostname;
 
+    @JsonProperty
     private Boolean verbose = true;
 
     @NotEmpty

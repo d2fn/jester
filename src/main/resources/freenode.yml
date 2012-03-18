@@ -3,6 +3,7 @@ prose: In royal court, only jesters may speak the truth.
 bot:
     name: jestersheeit
     hostname: irc.freenode.net
+    verbose: false
     channels:
         - name: "#kingshit"
         - name: "#jestershit"
