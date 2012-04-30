@@ -36,7 +36,8 @@ public class TwitterUser {
     }
     
     public String getProfilePicUrl() {
-        return profilePicUrl;
+        String url = profilePicUrl.replaceAll("_normal", "");
+        return url;
     }
     
     public String getDescription() {
