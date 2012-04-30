@@ -63,7 +63,6 @@ public class JesterBot extends PircBot implements Managed {
         
     }
 
-    @Override
     public void start() throws Exception {
         log.info("starting bot {}", config.getName());
         log.info(" - connecting to {}", config.getHostname());
@@ -73,7 +72,12 @@ public class JesterBot extends PircBot implements Managed {
             joinChannel(channel);
         }
     }
-    
+
+    public void stop() throws Exception {
+        log.info("stopping bot {}", config.getName());
+        disconnect();
+    }
+
     private void joinChannel(ChannelConfiguration channel) {
         if(channel.isProtected()) {
             joinChannel(channel.getName(), channel.getKey());
@@ -81,11 +85,5 @@ public class JesterBot extends PircBot implements Managed {
         else {
             joinChannel(channel.getName());
         }
-    }
-
-    @Override
-    public void stop() throws Exception {
-        log.info("stopping bot {}", config.getName());
-        disconnect();
     }
 }

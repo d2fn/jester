@@ -11,7 +11,7 @@ public class WhoAreYouPlugin implements Plugin {
 
     @Override
     public void call(JesterBot bot, Message msg) throws Exception {
-        if(msg.mentions(bot.getName()) && msg.mentions("who") && msg.mentions("is")) {
+        if(msg.mentions(bot.getName())) {
             bot.sendMessage(msg.getChannel(), msg.getSender() + ": i am halping");
         }
     }

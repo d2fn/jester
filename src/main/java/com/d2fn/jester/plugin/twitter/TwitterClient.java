@@ -41,6 +41,14 @@ public class TwitterClient {
     }
     
     public Tweet getTweetById(String id) throws Exception {
+
+        try {
+            Long.parseLong(id);
+        }
+        catch(Exception e) {
+            return null;
+        }
+
         String url = statusBase + id + ".json";
         HttpGet get = new HttpGet(url);
         InputStream in = null;

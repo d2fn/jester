@@ -19,13 +19,11 @@ public class TwitterPlugin implements Plugin {
     public TwitterPlugin(HttpClient httpClient) {
         twitter = new TwitterClient(httpClient);
     }
-    
-    @Override
+
     public String getName() {
         return "twitter";
     }
 
-    @Override
     public void call(JesterBot bot, Message msg) throws Exception {
         if(msg.isCommand("sup")) {
             
@@ -47,8 +45,10 @@ public class TwitterPlugin implements Plugin {
                 if(twitter.isTweet(word)) {
                     try {
                         Tweet tweet = twitter.getTweet(word);
-                        String response = tweet.getUser().getScreenName() + ": " + tweet.getText();
-                        bot.sendMessage(msg.getChannel(), response);
+                        if(tweet != null) {
+                            String response = tweet.getUser().getScreenName() + ": " + tweet.getText();
+                            bot.sendMessage(msg.getChannel(), response);
+                        }
                     }
                     catch(Exception e) {
                         log.error(e, "error retrieving timeline");
