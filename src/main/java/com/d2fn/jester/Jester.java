@@ -6,6 +6,7 @@ import com.d2fn.jester.config.JesterConfiguration;
 import com.d2fn.jester.plugin.Plugin;
 import com.d2fn.jester.plugin.RecallPlugin;
 import com.d2fn.jester.plugin.WhoAreYouPlugin;
+import com.d2fn.jester.plugin.cloudapp.CloudappPlugin;
 import com.d2fn.jester.plugin.gis.GoogleImageSearchPlugin;
 import com.d2fn.jester.plugin.twitter.TwitterPlugin;
 import com.yammer.dropwizard.Service;
@@ -53,6 +54,7 @@ public class Jester extends Service<JesterConfiguration> {
         plugins.add(new GoogleImageSearchPlugin(httpClient));
         plugins.add(new TwitterPlugin(httpClient));
         plugins.add(new RecallPlugin(bdbEnv, httpClient));
+        plugins.add(new CloudappPlugin(httpClient));
         // todo - add more plugins
 
         JesterBot bot = new JesterBot(config.getBot(), plugins);
