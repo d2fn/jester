@@ -6,6 +6,8 @@ import com.d2fn.jester.plugin.Plugin;
 import com.google.common.base.Charsets;
 import com.google.common.base.Strings;
 import com.google.common.io.ByteStreams;
+import com.yammer.dropwizard.client.HttpClientConfiguration;
+import com.yammer.dropwizard.client.HttpClientFactory;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
@@ -17,8 +19,17 @@ import java.util.regex.Pattern;
 
 public class CloudappPlugin implements Plugin {
     private static final Pattern LINK_RE = Pattern.compile("http://cl\\.ly[\\w_\\d-//]+");
-    private static final Pattern EMBEDDED_LINK_RE = Pattern.compile("a class=\"embed\".*(http://cl\\.ly[^\"]+)", Pattern.MULTILINE | Pattern.DOTALL);
+    private static final Pattern EMBEDDED_LINK_RE = Pattern.compile("a class=\"embed\".*(http://cl\\.ly[^\"]+)", Pattern.MULTILINE);
     private final HttpClient http;
+
+    public static void main(String[] args) throws Exception {
+        String url = "http://cl.ly/image/0E35473n2k0E";
+        final HttpClientConfiguration config = new HttpClientConfiguration();
+        HttpClient client = new HttpClientFactory(config).build();
+        final CloudappPlugin plugin = new CloudappPlugin(client);
+        final String imageUrl = plugin.findEmbeddedImageUrl(url);
+        System.out.println("imageUrl = " + imageUrl);
+    }
 
     public CloudappPlugin(HttpClient http) {
         this.http = http;
@@ -42,7 +53,7 @@ public class CloudappPlugin implements Plugin {
         }
     }
 
-    private String findEmbeddedImageUrl(String link) throws Exception {
+    String findEmbeddedImageUrl(String link) throws Exception {
         int retries = 3;
         while (retries > 0) {
             HttpGet get = new HttpGet(link);
