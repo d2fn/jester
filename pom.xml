@@ -9,21 +9,37 @@
     <name>jester</name>
     <packaging>jar</packaging>
 
+    <properties>
+        <dropwizard.version>0.3.1</dropwizard.version>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>com.yammer.dropwizard</groupId>
             <artifactId>dropwizard-core</artifactId>
-            <version>0.3.1</version>
+            <version>${dropwizard.version}</version>
         </dependency>
         <dependency>
             <groupId>com.yammer.dropwizard</groupId>
             <artifactId>dropwizard-client</artifactId>
-            <version>0.3.1</version>
+            <version>${dropwizard.version}</version>
         </dependency>
         <dependency>
             <groupId>berkeleydb</groupId>
             <artifactId>je</artifactId>
             <version>3.2.76</version>
+        </dependency>
+        <dependency>
+            <groupId>com.yammer.dropwizard</groupId>
+            <artifactId>dropwizard-testing</artifactId>
+            <version>${dropwizard.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.10</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 
