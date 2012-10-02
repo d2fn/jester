@@ -1,20 +1,13 @@
 package com.d2fn.jester.plugin;
 
 import com.d2fn.jester.bot.JesterBot;
-import com.google.common.base.Charsets;
 import com.google.common.base.Joiner;
 import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
-import com.google.common.io.ByteStreams;
-import org.apache.http.Header;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
 
 import javax.ws.rs.core.HttpHeaders;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.net.URLConnection;
 import java.util.Collection;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -24,11 +17,9 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 public class TcoPlugin implements Plugin {
     private static final Pattern LINK_PATTERN = Pattern.compile("(http://)?(www\\.)?t.co/[^\\s]+");
-    private final HttpClient http;
     private final Collection<Plugin> delegates;
 
-    public TcoPlugin(HttpClient http, Collection<Plugin> delegates) {
-        this.http = checkNotNull(http);
+    public TcoPlugin(Collection<Plugin> delegates) {
         this.delegates = checkNotNull(delegates);
     }
 
