@@ -1,6 +1,8 @@
-package com.d2fn.jester.plugin;
+package com.d2fn.jester.plugin.tco;
 
 import com.d2fn.jester.bot.JesterBot;
+import com.d2fn.jester.plugin.Message;
+import com.d2fn.jester.plugin.Plugin;
 import com.google.common.base.Joiner;
 import com.google.common.base.Strings;
 import com.google.common.collect.Lists;

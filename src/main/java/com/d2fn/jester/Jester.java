@@ -5,7 +5,7 @@ import com.d2fn.jester.bot.JesterBot;
 import com.d2fn.jester.config.JesterConfiguration;
 import com.d2fn.jester.plugin.Plugin;
 import com.d2fn.jester.plugin.RecallPlugin;
-import com.d2fn.jester.plugin.TcoPlugin;
+import com.d2fn.jester.plugin.tco.TcoPlugin;
 import com.d2fn.jester.plugin.WhoAreYouPlugin;
 import com.d2fn.jester.plugin.gis.GoogleImageSearchPlugin;
 import com.d2fn.jester.plugin.image.ImagePlugin;
@@ -52,7 +52,7 @@ public class Jester extends Service<JesterConfiguration> {
         plugins.add(buildCloudappPlugin(httpClient));
         plugins.add(buildInstagramPlugin(httpClient));
 
-        plugins.add(new TcoPlugin(httpClient, plugins));
+        plugins.add(new TcoPlugin(plugins));
 
         JesterBot bot = new JesterBot(config.getBot(), plugins);
         environment.manage(bot);
