@@ -27,6 +27,12 @@ public class JesterBot extends PircBot implements Managed {
         this.plugins = plugins;
     }
 
+    public void sendAndReprocessMessage(String target, String text, Message original) {
+        sendMessage(target, text);
+        Message newMessage = new Message(original.getChannel(), original.getSender(), original.getLogin(), original.getHostname(), text);
+        sendMessageToPlugins(newMessage);
+    }
+
     @Override
     protected void onMessage(String channel, String sender, String login, String hostname, String message) {
 
@@ -40,6 +46,10 @@ public class JesterBot extends PircBot implements Managed {
         
         // remit messages to all plugins
         Message m = new Message(channel, sender, login, hostname, message);
+        sendMessageToPlugins(m);
+    }
+
+    private void sendMessageToPlugins(Message m) {
         for(Plugin plugin : plugins) {
             try {
                 plugin.call(this, m);

@@ -33,7 +33,7 @@ public class TwitterPlugin implements Plugin {
                 String screenName = msg.getArguments().get(0);
                 TwitterUser user = twitter.lookupUser(screenName);
                 String response = user.getName() + ": \"" + user.getDescription() + "\" " + user.getProfilePicUrl();
-                bot.sendMessage(msg.getChannel(), response);
+                bot.sendAndReprocessMessage(msg.getChannel(), response, msg);
             }
             catch(Exception e) {
                 log.error(e, "error looking up user");
@@ -47,7 +47,7 @@ public class TwitterPlugin implements Plugin {
                         Tweet tweet = twitter.getTweet(word);
                         if(tweet != null) {
                             String response = tweet.getUser().getScreenName() + ": " + tweet.getText();
-                            bot.sendMessage(msg.getChannel(), response);
+                            bot.sendAndReprocessMessage(msg.getChannel(), response, msg);
                         }
                     }
                     catch(Exception e) {

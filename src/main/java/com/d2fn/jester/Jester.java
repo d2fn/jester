@@ -51,8 +51,7 @@ public class Jester extends Service<JesterConfiguration> {
         plugins.add(new RecallPlugin(bdbEnv, httpClient));
         plugins.add(buildCloudappPlugin(httpClient));
         plugins.add(buildInstagramPlugin(httpClient));
-
-        plugins.add(new TcoPlugin(plugins));
+        plugins.add(new TcoPlugin());
 
         JesterBot bot = new JesterBot(config.getBot(), plugins);
         environment.manage(bot);
