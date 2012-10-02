@@ -6,21 +6,20 @@ import com.d2fn.jester.config.JesterConfiguration;
 import com.d2fn.jester.plugin.Plugin;
 import com.d2fn.jester.plugin.RecallPlugin;
 import com.d2fn.jester.plugin.WhoAreYouPlugin;
-import com.d2fn.jester.plugin.cloudapp.CloudappPlugin;
 import com.d2fn.jester.plugin.gis.GoogleImageSearchPlugin;
-import com.d2fn.jester.plugin.instagram.InstagramPlugin;
+import com.d2fn.jester.plugin.image.ImagePlugin;
+import com.d2fn.jester.plugin.image.ImagePluginBuilder;
 import com.d2fn.jester.plugin.twitter.TwitterPlugin;
 import com.yammer.dropwizard.Service;
 import com.yammer.dropwizard.client.HttpClientFactory;
-import com.yammer.dropwizard.client.JerseyClient;
-import com.yammer.dropwizard.client.JerseyClientFactory;
 import com.yammer.dropwizard.config.Environment;
-import com.yammer.dropwizard.config.HttpConfiguration;
 import com.yammer.dropwizard.logging.Log;
 import org.apache.http.client.HttpClient;
 
 import java.util.ArrayList;
 import java.util.Collection;
+
+import static java.util.regex.Pattern.compile;
 
 /**
  * Jester
@@ -41,13 +40,7 @@ public class Jester extends Service<JesterConfiguration> {
     @Override
     public void initialize(JesterConfiguration config, Environment environment) {
         log.info("\n\n{}\n", config.getProse());
-
-//        JerseyClient httpClient = new JerseyClientFactory(config.getJerseyClientConfiguration()).build(environment);
-
-        // set up an http client for all to share
         HttpClient httpClient = new HttpClientFactory(config.getHttpClientConfiguration()).build();
-
-        // set up an embedded bdb for all to share
         BdbEnvironment bdbEnv = new BdbEnvironment(config.getBdbConfiguration());
 
         Collection<Plugin> plugins = new ArrayList<Plugin>();
@@ -55,13 +48,29 @@ public class Jester extends Service<JesterConfiguration> {
         plugins.add(new GoogleImageSearchPlugin(httpClient));
         plugins.add(new TwitterPlugin(httpClient));
         plugins.add(new RecallPlugin(bdbEnv, httpClient));
-        plugins.add(new CloudappPlugin(httpClient));
-        plugins.add(new InstagramPlugin(httpClient));
-
-        // todo - add more plugins
+        plugins.add(buildCloudappPlugin(httpClient));
+        plugins.add(buildInstagramPlugin(httpClient));
 
         JesterBot bot = new JesterBot(config.getBot(), plugins);
         environment.manage(bot);
         environment.manage(bdbEnv);
+    }
+
+    private Plugin buildInstagramPlugin(HttpClient httpClient) {
+        return new ImagePluginBuilder()
+                .setName("Instagram")
+                .setLinkPattern(ImagePlugin.INSTAGRAM_LINK)
+                .setEmbeddedLinkPattern(ImagePlugin.INSTAGRAM_EMBEDDED_LINK)
+                .setHttp(httpClient)
+                .createImagePlugin();
+    }
+
+    private Plugin buildCloudappPlugin(HttpClient httpClient) {
+        return new ImagePluginBuilder()
+                .setName("Cloudapp")
+                .setLinkPattern(ImagePlugin.CLOUDAPP_LINK)
+                .setEmbeddedLinkPattern(ImagePlugin.CLOUDAPP_EMBEDDED_LINK)
+                .setHttp(httpClient)
+                .createImagePlugin();
     }
 }
