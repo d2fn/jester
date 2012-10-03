@@ -7,7 +7,7 @@ import com.d2fn.jester.plugin.Plugin;
 import com.d2fn.jester.plugin.RecallPlugin;
 import com.d2fn.jester.plugin.WhoAreYouPlugin;
 import com.d2fn.jester.plugin.gis.GoogleImageSearchPlugin;
-import com.d2fn.jester.plugin.plugin.RewritingPlugin;
+import com.d2fn.jester.plugin.RewritingPlugin;
 import com.d2fn.jester.plugin.twitter.TwitterPlugin;
 import com.d2fn.jester.rewrite.*;
 import com.google.common.collect.Lists;

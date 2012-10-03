@@ -1,4 +1,4 @@
-package com.d2fn.jester.plugin.plugin;
+package com.d2fn.jester.plugin;
 
 import com.d2fn.jester.bot.JesterBot;
 import com.d2fn.jester.plugin.Message;
