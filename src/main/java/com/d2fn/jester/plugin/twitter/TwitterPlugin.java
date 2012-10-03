@@ -30,18 +30,6 @@ public class TwitterPlugin implements Plugin {
         return "twitter";
     }
 
-    private String rewriteResponse(String response) {
-        try {
-            final Optional<String> optional = rewriter.rewrite(response);
-            if (optional.isPresent()) {
-                return optional.get();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return response;
-    }
-
     public void call(JesterBot bot, Message msg) throws Exception {
         if(msg.isCommand("sup")) {
             
@@ -76,6 +64,14 @@ public class TwitterPlugin implements Plugin {
             }
         }
     }
-    
+
+    private String rewriteResponse(String response) throws Exception {
+        final Optional<String> optional = rewriter.rewrite(response);
+        if (optional.isPresent()) {
+            return optional.get();
+        }
+        return response;
+    }
+
     private static final Log log = Log.forClass(TwitterPlugin.class);
 }

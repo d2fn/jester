@@ -1,8 +1,6 @@
 package com.d2fn.jester.plugin;
 
 import com.d2fn.jester.bot.JesterBot;
-import com.d2fn.jester.plugin.Message;
-import com.d2fn.jester.plugin.Plugin;
 import com.d2fn.jester.rewrite.Rewriter;
 import com.google.common.base.Optional;
 
