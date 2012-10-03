@@ -1,8 +1,6 @@
-package com.d2fn.jester.plugin.tco;
+package com.d2fn.jester.rewrite;
 
-import com.d2fn.jester.bot.JesterBot;
-import com.d2fn.jester.plugin.Message;
-import com.d2fn.jester.plugin.Plugin;
+import com.google.common.base.Optional;
 import com.google.common.base.Strings;
 
 import javax.ws.rs.core.HttpHeaders;
@@ -11,28 +9,17 @@ import java.net.URL;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class TcoPlugin implements Plugin {
+public class TcoRewriter implements Rewriter {
     private static final Pattern LINK_PATTERN = Pattern.compile("(http://)?(www\\.)?t.co/[^\\s]+");
 
-    public TcoPlugin() {
-    }
-
     @Override
-    public String getName() {
-        return "t.co";
-    }
-
-    @Override
-    public void call(JesterBot bot, Message msg) throws Exception {
-        final Matcher matcher = LINK_PATTERN.matcher(msg.getMessage());
-        while (matcher.find()) {
-            final String link = matcher.group();
-            final String redirectedLink = findRedirect(link);
-            if (redirectedLink != null) {
-                String response = msg.getSender() + ": ftfy -> " + redirectedLink;
-                bot.sendMessage(msg.getChannel(), response);
-            }
+    public Optional<String> rewrite(String input) throws Exception {
+        final Matcher matcher = LINK_PATTERN.matcher(input);
+        if (matcher.matches()) {
+            final String link = findRedirect(matcher.group());
+            return Optional.fromNullable(link);
         }
+        return Optional.absent();
     }
 
     private String findRedirect(String link) throws Exception {
@@ -51,6 +38,5 @@ public class TcoPlugin implements Plugin {
         }
         return null;
     }
-
 
 }
