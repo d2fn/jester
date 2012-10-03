@@ -13,7 +13,6 @@ import java.util.List;
  * @author Dietrich Featherston
  */
 public class Message implements Serializable {
-    
     private String channel;
     private String sender;
     private String login;

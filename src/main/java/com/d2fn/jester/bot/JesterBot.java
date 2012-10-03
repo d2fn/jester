@@ -40,6 +40,10 @@ public class JesterBot extends PircBot implements Managed {
         
         // remit messages to all plugins
         Message m = new Message(channel, sender, login, hostname, message);
+        sendMessageToPlugins(m);
+    }
+
+    private void sendMessageToPlugins(Message m) {
         for(Plugin plugin : plugins) {
             try {
                 plugin.call(this, m);
