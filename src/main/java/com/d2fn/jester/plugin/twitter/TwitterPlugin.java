@@ -8,7 +8,6 @@ import com.d2fn.jester.plugin.twitter.response.TwitterUser;
 import com.d2fn.jester.rewrite.Rewriter;
 import com.d2fn.jester.rewrite.SentenceRewriter;
 import com.google.common.base.Optional;
-import com.google.common.base.Preconditions;
 import com.yammer.dropwizard.logging.Log;
 import org.apache.http.client.HttpClient;
 

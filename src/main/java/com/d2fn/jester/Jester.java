@@ -5,10 +5,9 @@ import com.d2fn.jester.bot.JesterBot;
 import com.d2fn.jester.config.JesterConfiguration;
 import com.d2fn.jester.plugin.Plugin;
 import com.d2fn.jester.plugin.RecallPlugin;
-import com.d2fn.jester.plugin.plugin.RewritingPlugin;
-import com.d2fn.jester.plugin.tco.TcoPlugin;
 import com.d2fn.jester.plugin.WhoAreYouPlugin;
 import com.d2fn.jester.plugin.gis.GoogleImageSearchPlugin;
+import com.d2fn.jester.plugin.plugin.RewritingPlugin;
 import com.d2fn.jester.plugin.twitter.TwitterPlugin;
 import com.d2fn.jester.rewrite.*;
 import com.google.common.collect.Lists;
@@ -18,12 +17,9 @@ import com.yammer.dropwizard.config.Environment;
 import com.yammer.dropwizard.logging.Log;
 import org.apache.http.client.HttpClient;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 
 import static java.util.Arrays.asList;
-import static java.util.regex.Pattern.compile;
 
 /**
  * Jester

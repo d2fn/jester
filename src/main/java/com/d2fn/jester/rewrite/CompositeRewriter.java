@@ -1,7 +1,6 @@
 package com.d2fn.jester.rewrite;
 
 import com.google.common.base.Optional;
-import com.google.common.base.Preconditions;
 import com.google.common.collect.Sets;
 
 import java.util.Collection;
