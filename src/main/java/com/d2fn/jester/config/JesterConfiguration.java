@@ -16,6 +16,19 @@ import javax.validation.constraints.NotNull;
  */
 public class JesterConfiguration extends Configuration {
 
+    public static class ZerocaterConfiguration {
+        private String username;
+        private String password;
+
+        public String getUsername() {
+            return username;
+        }
+
+        public String getPassword() {
+            return password;
+        }
+    }
+
     @NotEmpty
     @JsonProperty
     private String prose;
@@ -25,6 +38,8 @@ public class JesterConfiguration extends Configuration {
     @JsonProperty("http_client")
     private HttpClientConfiguration httpClient = new HttpClientConfiguration();
 //    private JerseyClientConfiguration httpClient = new JerseyClientConfiguration();
+
+    private ZerocaterConfiguration zerocater = new ZerocaterConfiguration();
 
     @NotNull
     @JsonProperty
@@ -48,5 +63,9 @@ public class JesterConfiguration extends Configuration {
     
     public BdbConfiguration getBdbConfiguration() {
         return bdb;
+    }
+
+    public ZerocaterConfiguration getZerocater() {
+        return zerocater;
     }
 }

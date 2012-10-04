@@ -9,6 +9,7 @@ import com.d2fn.jester.plugin.WhoAreYouPlugin;
 import com.d2fn.jester.plugin.gis.GoogleImageSearchPlugin;
 import com.d2fn.jester.plugin.RewritingPlugin;
 import com.d2fn.jester.plugin.twitter.TwitterPlugin;
+import com.d2fn.jester.plugin.zerocater.ZeroCaterPlugin;
 import com.d2fn.jester.rewrite.*;
 import com.google.common.collect.Lists;
 import com.yammer.dropwizard.Service;
@@ -52,6 +53,7 @@ public class Jester extends Service<JesterConfiguration> {
         plugins.add(new TwitterPlugin(httpClient, sentenceRewriter));
         plugins.add(new RecallPlugin(bdbEnv, httpClient));
         plugins.add(new RewritingPlugin(compositeRewriter));
+        plugins.add(new ZeroCaterPlugin());
 
         JesterBot bot = new JesterBot(config.getBot(), plugins);
         environment.manage(bot);
