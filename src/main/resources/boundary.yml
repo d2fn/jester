@@ -1,0 +1,21 @@
+prose: In royal court, only jesters may speak the truth.
+
+bot:
+    name: jester
+    hostname: irc.cid1.boundary.com
+    verbose: true
+    channels:
+        - name: "#kingshit"
+
+http_client:
+  # timeout after 1s while connecting, reading, or writing
+  timeout: 1s
+
+  # keep connections open for 10 minutes
+  timeToLive: 10m
+
+  # don't track cookies
+  cookiesEnabled: false
+
+bdb:
+    path: /srv/jester

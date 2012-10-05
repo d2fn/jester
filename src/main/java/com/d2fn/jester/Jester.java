@@ -53,7 +53,9 @@ public class Jester extends Service<JesterConfiguration> {
         plugins.add(new TwitterPlugin(httpClient, sentenceRewriter));
         plugins.add(new RecallPlugin(bdbEnv, httpClient));
         plugins.add(new RewritingPlugin(compositeRewriter));
-        plugins.add(new ZeroCaterPlugin());
+
+		JesterConfiguration.ZerocaterConfiguration zcConfig = config.getZerocater();
+        plugins.add(new ZeroCaterPlugin(zcConfig.getUsername(), zcConfig.getPassword()));
 
         JesterBot bot = new JesterBot(config.getBot(), plugins);
         environment.manage(bot);
