@@ -2,6 +2,7 @@ package com.d2fn.jester.plugin.image;
 
 import com.d2fn.jester.rewrite.CloudappRewriter;
 import com.d2fn.jester.rewrite.InstagramRewriter;
+import com.d2fn.jester.rewrite.TwitterImageRewriter;
 import org.junit.Test;
 
 import java.util.regex.Matcher;
@@ -25,5 +26,14 @@ public class RegexTest {
         final Matcher matcher = InstagramRewriter.LINK_PATTERN.matcher(text);
         assertTrue(matcher.find());
         assertEquals("http://instagram.com/p/QLwqJxLT4f/", matcher.group());
+    }
+
+    @Test
+    public void testTwitterImageLinkFinder() throws Exception {
+        final String text = "Here is a link http://twitter.com/williamsjoe/status/258695575673909249/photo/1 ok.";
+        final Matcher matcher = TwitterImageRewriter.LINK_PATTERN.matcher(text);
+        assertTrue(matcher.find());
+        assertEquals("http://twitter.com/williamsjoe/status/258695575673909249/photo/1", matcher.group());
+
     }
 }

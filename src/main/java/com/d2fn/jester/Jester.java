@@ -65,8 +65,13 @@ public class Jester extends Service<JesterConfiguration> {
     private CompositeRewriter buildCompositeRewriter(HttpClient httpClient) {
         final CloudappRewriter cloudappRewriter = new CloudappRewriter(httpClient);
         final InstagramRewriter instagramRewriter = new InstagramRewriter(httpClient);
+        final TwitterImageRewriter twitterImageRewriter = new TwitterImageRewriter(httpClient);
         final TcoRewriter tcoRewriter = new TcoRewriter();
-        return new CompositeRewriter(asList(cloudappRewriter, instagramRewriter, tcoRewriter));
+        return new CompositeRewriter(asList(
+                cloudappRewriter,
+                instagramRewriter,
+                tcoRewriter,
+                twitterImageRewriter));
     }
 
 }
