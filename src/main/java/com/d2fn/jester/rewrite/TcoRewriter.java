@@ -10,7 +10,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class TcoRewriter implements Rewriter {
-    private static final Pattern LINK_PATTERN = Pattern.compile("(http://)?(www\\.)?t.co/[^\\s]+");
+    private static final Pattern LINK_PATTERN = Pattern.compile("(https?://)?(www\\.)?t.co/[^\\s]+");
 
     @Override
     public Optional<String> rewrite(String input) throws Exception {
