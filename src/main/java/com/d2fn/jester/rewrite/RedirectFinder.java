@@ -8,7 +8,8 @@ import java.net.URL;
 
 public class RedirectFinder {
     public String findRedirect(String link) throws Exception {
-        if (!link.startsWith("http://")) {
+        // if no protocol is given, we have to add one to make url fetching work
+        if (!link.toLowerCase().startsWith("http")) {
             link = "http://" + link;
         }
         final URL url = new URL(link);
