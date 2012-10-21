@@ -1,28 +1,13 @@
 package com.d2fn.jester.rewrite;
 
-import com.google.common.base.Optional;
 import com.google.common.base.Strings;
 
 import javax.ws.rs.core.HttpHeaders;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
-public class TcoRewriter implements Rewriter {
-    private static final Pattern LINK_PATTERN = Pattern.compile("(https?://)?(www\\.)?t.co/[^\\s]+");
-
-    @Override
-    public Optional<String> rewrite(String input) throws Exception {
-        final Matcher matcher = LINK_PATTERN.matcher(input);
-        if (matcher.matches()) {
-            final String link = findRedirect(matcher.group());
-            return Optional.fromNullable(link);
-        }
-        return Optional.absent();
-    }
-
-    private String findRedirect(String link) throws Exception {
+public class RedirectFinder {
+    public String findRedirect(String link) throws Exception {
         if (!link.startsWith("http://")) {
             link = "http://" + link;
         }
@@ -38,5 +23,4 @@ public class TcoRewriter implements Rewriter {
         }
         return null;
     }
-
 }

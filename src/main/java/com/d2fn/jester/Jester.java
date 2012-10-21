@@ -10,6 +10,7 @@ import com.d2fn.jester.plugin.gis.GoogleImageSearchPlugin;
 import com.d2fn.jester.plugin.RewritingPlugin;
 import com.d2fn.jester.plugin.twitter.TwitterPlugin;
 import com.d2fn.jester.plugin.zerocater.ZeroCaterPlugin;
+import com.d2fn.jester.resource.PingResource;
 import com.d2fn.jester.rewrite.*;
 import com.google.common.collect.Lists;
 import com.yammer.dropwizard.Service;
@@ -60,17 +61,18 @@ public class Jester extends Service<JesterConfiguration> {
         JesterBot bot = new JesterBot(config.getBot(), plugins);
         environment.manage(bot);
         environment.manage(bdbEnv);
+        environment.addResource(new PingResource());
     }
 
     private CompositeRewriter buildCompositeRewriter(HttpClient httpClient) {
         final CloudappRewriter cloudappRewriter = new CloudappRewriter(httpClient);
         final InstagramRewriter instagramRewriter = new InstagramRewriter(httpClient);
         final TwitterImageRewriter twitterImageRewriter = new TwitterImageRewriter(httpClient);
-        final TcoRewriter tcoRewriter = new TcoRewriter();
+        final LinkRewriter linkRewriter = new LinkRewriter(new RedirectFinder());
         return new CompositeRewriter(asList(
                 cloudappRewriter,
                 instagramRewriter,
-                tcoRewriter,
+                linkRewriter,
                 twitterImageRewriter));
     }
 
