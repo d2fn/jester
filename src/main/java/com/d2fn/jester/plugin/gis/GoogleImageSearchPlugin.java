@@ -3,48 +3,41 @@ package com.d2fn.jester.plugin.gis;
 import com.d2fn.jester.bot.JesterBot;
 import com.d2fn.jester.plugin.Message;
 import com.d2fn.jester.plugin.Plugin;
+import com.google.common.base.Joiner;
 import com.yammer.dropwizard.logging.Log;
 import org.apache.http.client.HttpClient;
 
-import java.util.List;
+import java.security.SecureRandom;
 
-/**
- * GoogleImageSearchPlugin
- * @author Dietrich Featherston
- */
 public class GoogleImageSearchPlugin implements Plugin {
-
     private static final Log log = Log.forClass(GoogleImageSearchPlugin.class);
-
     private GisClient gis;
-    
-    public String getName() {
-        return "google-image-search";
-    }
-    
+    private final SecureRandom random = new SecureRandom();
+
     public GoogleImageSearchPlugin(HttpClient httpClient) {
         gis = new GisClient(httpClient);
     }
 
+    public String getName() {
+        return "google-image-search";
+    }
+    
     @Override
     public void call(JesterBot bot, Message msg) throws Exception {
-        if(msg.isCommand("gis") && msg.hasArguments()) {
-            String q = processArguments(msg.getArguments());
-            log.info("running google image search for '{}'", q);
-            String url = gis.search(q);
+        if(shouldRandomlySearch(msg.getChannel()) || (msg.isCommand("gis") && msg.hasArguments())) {
+            String query = Joiner.on(" ").join(msg.getArguments());
+            log.info("running google image search for '{}'", query);
+            String url = gis.search(query);
             if(url != null) {
-                log.info("gis for '{}' returned {}", q, url);
+                log.info("gis for '{}' returned {}", query, url);
                 String response = msg.getSender() + ": ftfy -> " + url;
                 bot.sendMessage(msg.getChannel(), response);
             }
         }
     }
-    
-    private String processArguments(List<String> args) {
-        StringBuilder sb = new StringBuilder();
-        for(String arg : args) {
-            sb.append(arg).append(" ");
-        }
-        return sb.toString();
+
+    private boolean shouldRandomlySearch(String channel) {
+        return 0 == random.nextInt(500) && channel.equals("kingshit");
     }
+
 }
