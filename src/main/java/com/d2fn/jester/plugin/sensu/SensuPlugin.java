@@ -92,7 +92,7 @@ public class SensuPlugin implements Plugin {
         for (String stashed : jersey.resource(rootUri).path("stashes").get(new GenericType<List<String>>() {
         })) {
             if (stashed.startsWith("silence/")) {
-                result.add(stashed);
+                result.add(stashed.substring("silence/".length()));
             }
         };
         return result;
