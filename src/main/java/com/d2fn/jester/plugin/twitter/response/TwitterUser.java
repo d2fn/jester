@@ -1,16 +1,13 @@
 package com.d2fn.jester.plugin.twitter.response;
 
-import org.codehaus.jackson.annotate.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.validator.constraints.NotEmpty;
-
-import javax.validation.constraints.NotNull;
 
 /**
  * TwitterUser
  * @author Dietrich Featherston
  */
 public class TwitterUser {
-
     @NotEmpty
     @JsonProperty("id_str")
     private String id;

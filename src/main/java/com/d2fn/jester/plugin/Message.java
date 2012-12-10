@@ -1,6 +1,7 @@
 package com.d2fn.jester.plugin;
 
-import com.yammer.dropwizard.logging.Log;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -13,6 +14,7 @@ import java.util.List;
  * @author Dietrich Featherston
  */
 public class Message implements Serializable {
+    private static final Logger log = LoggerFactory.getLogger(Message.class);
     private String channel;
     private String sender;
     private String login;
@@ -93,5 +95,4 @@ public class Message implements Serializable {
         return false;
     }
     
-    private static final Log log = Log.forClass(Message.class);
 }

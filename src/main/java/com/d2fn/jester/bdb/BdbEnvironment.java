@@ -2,7 +2,6 @@ package com.d2fn.jester.bdb;
 
 import com.d2fn.jester.config.BdbConfiguration;
 import com.sleepycat.bind.EntryBinding;
-import com.sleepycat.bind.serial.ClassCatalog;
 import com.sleepycat.bind.serial.SerialBinding;
 import com.sleepycat.bind.serial.StoredClassCatalog;
 import com.sleepycat.collections.StoredMap;
@@ -11,17 +10,18 @@ import com.sleepycat.je.DatabaseConfig;
 import com.sleepycat.je.Environment;
 import com.sleepycat.je.EnvironmentConfig;
 import com.yammer.dropwizard.lifecycle.Managed;
-import com.yammer.dropwizard.logging.Log;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * BdbEnvironment
  */
 public class BdbEnvironment implements Managed {
+    private static final Logger log = LoggerFactory.getLogger(BdbEnvironment.class);
 
     private BdbConfiguration config;
     private Environment environment;
@@ -107,12 +107,11 @@ public class BdbEnvironment implements Managed {
 
         }
         catch(Exception e) {
-            log.error(e, "error opening database {}", name);
+            log.error(String.format("error opening database %s", name), e);
         }
         return null;
     }
     
     
     
-    private static final Log log = Log.forClass(BdbEnvironment.class);
 }

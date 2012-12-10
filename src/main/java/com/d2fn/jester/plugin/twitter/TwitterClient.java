@@ -2,25 +2,26 @@ package com.d2fn.jester.plugin.twitter;
 
 import com.d2fn.jester.plugin.twitter.response.Tweet;
 import com.d2fn.jester.plugin.twitter.response.TwitterUser;
-import com.yammer.dropwizard.json.Json;
-import com.yammer.dropwizard.logging.Log;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.yammer.dropwizard.json.ObjectMapperFactory;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.InputStream;
-import java.util.List;
 
 /**
  * TwitterClient
  * @author Dietrich Featherston
  */
 public class TwitterClient {
-
+    private static final Logger log = LoggerFactory.getLogger(TwitterClient.class);
     private static final String userBase = "http://api.twitter.com/1/users/lookup.json?include_entities=true&screen_name=";
     private static final String statusBase = "https://api.twitter.com/1/statuses/show/";
     private HttpClient httpClient;
-    private Json json = new Json();
+    private ObjectMapper json = new ObjectMapperFactory().build();
     
     public TwitterClient(HttpClient httpClient) {
         this.httpClient = httpClient;
@@ -58,7 +59,7 @@ public class TwitterClient {
             return json.readValue(in, Tweet.class);
         }
         finally {
-            try { if(in != null) { in.close(); } } catch(Exception e2) { log.error(e2, "error closing input stream");}
+            try { if(in != null) { in.close(); } } catch(Exception e2) { log.error("error closing input stream", e2);}
         }
     }
 
@@ -73,9 +74,8 @@ public class TwitterClient {
             return users[0];
         }
         finally {
-            try { if(in != null) { in.close(); } } catch(Exception e2) { log.error(e2, "error closing input stream");}
+            try { if(in != null) { in.close(); } } catch(Exception e2) { log.error("error closing input stream", e2);}
         }
     }
     
-    private static final Log log = Log.forClass(TwitterClient.class);
 }

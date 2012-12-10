@@ -1,13 +1,9 @@
 package com.d2fn.jester.config;
 
-import org.codehaus.jackson.annotate.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.validator.constraints.NotEmpty;
 
-/**
- * BdbConfiguration
- */
 public class BdbConfiguration {
-    
     @JsonProperty
     @NotEmpty
     private String path;

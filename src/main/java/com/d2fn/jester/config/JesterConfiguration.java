@@ -1,14 +1,14 @@
 package com.d2fn.jester.config;
 
-import com.d2fn.jester.bot.JesterBot;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.yammer.dropwizard.client.HttpClientConfiguration;
 import com.yammer.dropwizard.client.JerseyClientConfiguration;
 import com.yammer.dropwizard.config.Configuration;
-import org.codehaus.jackson.annotate.JsonProperty;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import java.net.URI;
 
 /**
  * JesterConfiguration
@@ -29,6 +29,19 @@ public class JesterConfiguration extends Configuration {
         }
     }
 
+    public static class SensuConfiguration {
+        private URI url;
+        private JerseyClientConfiguration jersey = new JerseyClientConfiguration();
+
+        public URI getUrl() {
+            return url;
+        }
+
+        public JerseyClientConfiguration getJersey() {
+            return jersey;
+        }
+    }
+
     @NotEmpty
     @JsonProperty
     private String prose;
@@ -37,9 +50,12 @@ public class JesterConfiguration extends Configuration {
     @NotNull
     @JsonProperty("http_client")
     private HttpClientConfiguration httpClient = new HttpClientConfiguration();
-//    private JerseyClientConfiguration httpClient = new JerseyClientConfiguration();
 
     private ZerocaterConfiguration zerocater = new ZerocaterConfiguration();
+
+    @Valid
+    @NotNull
+    private SensuConfiguration sensu = new SensuConfiguration();
 
     @NotNull
     @JsonProperty
@@ -67,5 +83,9 @@ public class JesterConfiguration extends Configuration {
 
     public ZerocaterConfiguration getZerocater() {
         return zerocater;
+    }
+
+    public SensuConfiguration getSensu() {
+        return sensu;
     }
 }

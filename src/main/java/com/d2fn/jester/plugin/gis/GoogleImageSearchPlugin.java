@@ -4,13 +4,14 @@ import com.d2fn.jester.bot.JesterBot;
 import com.d2fn.jester.plugin.Message;
 import com.d2fn.jester.plugin.Plugin;
 import com.google.common.base.Joiner;
-import com.yammer.dropwizard.logging.Log;
 import org.apache.http.client.HttpClient;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.security.SecureRandom;
 
 public class GoogleImageSearchPlugin implements Plugin {
-    private static final Log log = Log.forClass(GoogleImageSearchPlugin.class);
+    private static final Logger log = LoggerFactory.getLogger(GoogleImageSearchPlugin.class);
     private GisClient gis;
     private final SecureRandom random = new SecureRandom();
 

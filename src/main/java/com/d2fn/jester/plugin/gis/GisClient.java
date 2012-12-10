@@ -2,12 +2,13 @@ package com.d2fn.jester.plugin.gis;
 
 import com.d2fn.jester.plugin.gis.response.GisImageResult;
 import com.d2fn.jester.plugin.gis.response.GisResponse;
-import com.yammer.dropwizard.client.JerseyClient;
-import com.yammer.dropwizard.json.Json;
-import com.yammer.dropwizard.logging.Log;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.yammer.dropwizard.json.ObjectMapperFactory;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.ws.rs.core.MediaType;
 import java.io.InputStream;
@@ -18,14 +19,13 @@ import java.util.Map;
 import java.util.Random;
 
 public class GisClient {
-
-    private static Log log = Log.forClass(GisClient.class);
+    private static Logger log = LoggerFactory.getLogger(GisClient.class);
     private static final String api = "http://ajax.googleapis.com/ajax/services/search/images?v=1.0&q=";
 
     private HttpClient httpClient;
     
     private MediaType jsType;
-    private Json json = new Json();
+    private ObjectMapper json = new ObjectMapperFactory().build();
     
     public GisClient(HttpClient httpClient) {
         this.httpClient = httpClient;
@@ -46,7 +46,7 @@ public class GisClient {
             return images.get(i).getUrl();
         }
         catch(Exception e) {
-            log.error(e, "error running google image search for '{}'", q);
+            log.error(String.format("error running google image search for '%s'", q) ,e);
         }
         finally {
             if(is != null) is.close();

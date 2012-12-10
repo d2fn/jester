@@ -1,6 +1,6 @@
 package com.d2fn.jester.plugin.gis.response;
 
-import org.codehaus.jackson.annotate.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.net.URI;
 import java.util.List;

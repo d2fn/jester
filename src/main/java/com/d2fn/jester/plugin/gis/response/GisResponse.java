@@ -1,13 +1,8 @@
 package com.d2fn.jester.plugin.gis.response;
 
-import org.codehaus.jackson.annotate.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
-/**
- * GisResponse
- * @author Dietrich Featherston
- */
 public class GisResponse {
-
     @JsonProperty
     private ResponseData responseData;
     

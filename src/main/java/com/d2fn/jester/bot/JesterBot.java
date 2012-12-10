@@ -5,8 +5,9 @@ import com.d2fn.jester.config.ChannelConfiguration;
 import com.d2fn.jester.plugin.Message;
 import com.d2fn.jester.plugin.Plugin;
 import com.yammer.dropwizard.lifecycle.Managed;
-import com.yammer.dropwizard.logging.Log;
 import org.jibble.pircbot.PircBot;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Collection;
 
@@ -15,8 +16,7 @@ import java.util.Collection;
  * @author Dietrich Featherston
  */
 public class JesterBot extends PircBot implements Managed {
-
-    private static final Log log = Log.forClass(JesterBot.class);
+    private static final Logger log = LoggerFactory.getLogger(JesterBot.class);
 
     private BotConfiguration config;
     private Collection<Plugin> plugins;
@@ -49,7 +49,7 @@ public class JesterBot extends PircBot implements Managed {
                 plugin.call(this, m);
             }
             catch(Exception e) {
-                log.error(e, "error encountered running plugin {}", plugin.getName());
+                log.error("error encountered running plugin {}", plugin.getName(), e);
             }
         }
     }
@@ -62,7 +62,7 @@ public class JesterBot extends PircBot implements Managed {
             Thread.sleep(5000L);
             start();
         } catch (Exception e) {
-            log.error(e, "interrupted during sleep");
+            log.error("interrupted during sleep", e);
         }
         
     }

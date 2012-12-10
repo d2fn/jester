@@ -1,8 +1,6 @@
 package com.d2fn.jester.plugin.gis.response;
 
-import org.codehaus.jackson.annotate.JsonProperty;
-
-import java.net.URI;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * GisImageResult
