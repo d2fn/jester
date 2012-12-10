@@ -53,6 +53,9 @@ public class SensuPlugin implements Plugin {
                     }
                 } else if ("silenced".equals(firstArgument)) {
                     final List<String> silenced = getSilenced();
+                    if (silenced.isEmpty()) {
+                        bot.sendMessage(msg.getChannel(), "Nothing is silenced.");
+                    }
                     for (String thing : silenced) {
                         bot.sendMessage(msg.getChannel(), thing);
                     }
