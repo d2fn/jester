@@ -48,6 +48,9 @@ public class SensuPlugin implements Plugin {
                 if ("events".equals(firstArgument)) {
                     // status: client/check - output
                     final List<Event> events = getEvents();
+                    if (events.isEmpty()) {
+                        bot.sendMessage(msg.getChannel(), "No events.");
+                    }
                     for (Event event : events) {
                         bot.sendMessage(msg.getChannel(), event.toString());
                     }
