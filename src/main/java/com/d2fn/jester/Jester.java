@@ -3,6 +3,7 @@ package com.d2fn.jester;
 import com.d2fn.jester.bdb.BdbEnvironment;
 import com.d2fn.jester.bot.JesterBot;
 import com.d2fn.jester.config.JesterConfiguration;
+import com.d2fn.jester.plugin.GraphitePlugin;
 import com.d2fn.jester.plugin.Plugin;
 import com.d2fn.jester.plugin.RecallPlugin;
 import com.d2fn.jester.plugin.RewritingPlugin;
@@ -59,6 +60,7 @@ public class Jester extends Service<JesterConfiguration> {
         plugins.add(new RecallPlugin(bdbEnv, httpClient));
         plugins.add(new RewritingPlugin(compositeRewriter));
         plugins.add(new SensuPlugin(buildJerseyClient(config.getSensu().getJersey(), environment), config.getSensu().getUrl()));
+        plugins.add(buildGraphitePlugin(config.getGraphite(), environment));
 
         JesterConfiguration.ZerocaterConfiguration zcConfig = config.getZerocater();
         plugins.add(new ZeroCaterPlugin(zcConfig.getUsername(), zcConfig.getPassword()));
@@ -67,6 +69,11 @@ public class Jester extends Service<JesterConfiguration> {
         environment.manage(bot);
         environment.manage(bdbEnv);
         environment.addResource(new PingResource());
+    }
+
+    private Plugin buildGraphitePlugin(JesterConfiguration.GraphiteConfiguration config, Environment environment) {
+        final Client client = buildJerseyClient(config.getJersey(), environment);
+        return new GraphitePlugin(client, config.getUrlPrefix(), config.getStorageLocation(), config.getResultUrlPrefix(), config.getNumImagesToKeep());
     }
 
     private Client buildJerseyClient(JerseyClientConfiguration configuration, Environment environment) {

@@ -8,6 +8,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import java.io.File;
 import java.net.URI;
 
 /**
@@ -15,6 +16,34 @@ import java.net.URI;
  * @author Dietrich Featherston
  */
 public class JesterConfiguration extends Configuration {
+
+    public static class GraphiteConfiguration {
+        private String urlPrefix;
+        private File storageLocation;
+        private String resultUrlPrefix;
+        private JerseyClientConfiguration jersey = new JerseyClientConfiguration();
+        private int numImagesToKeep = 1000;
+
+        public String getUrlPrefix() {
+            return urlPrefix;
+        }
+
+        public File getStorageLocation() {
+            return storageLocation;
+        }
+
+        public String getResultUrlPrefix() {
+            return resultUrlPrefix;
+        }
+
+        public JerseyClientConfiguration getJersey() {
+            return jersey;
+        }
+
+        public int getNumImagesToKeep() {
+            return numImagesToKeep;
+        }
+    }
 
     public static class ZerocaterConfiguration {
         private String username;
@@ -64,6 +93,12 @@ public class JesterConfiguration extends Configuration {
     @NotNull
     @JsonProperty
     private BdbConfiguration bdb;
+
+    private GraphiteConfiguration graphite = new GraphiteConfiguration();
+
+    public GraphiteConfiguration getGraphite() {
+        return graphite;
+    }
 
     public String getProse() {
         return prose;
