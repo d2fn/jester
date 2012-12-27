@@ -76,12 +76,14 @@ public class Jester extends Service<JesterConfiguration> {
 
     private CompositeRewriter buildCompositeRewriter(HttpClient httpClient) {
         final CloudappRewriter cloudappRewriter = new CloudappRewriter(httpClient);
+        final KingshitRewriter kingshitRewriter = new KingshitRewriter(httpClient);
         final InstagramRewriter instagramRewriter = new InstagramRewriter(httpClient);
         final TwitterImageRewriter twitterImageRewriter = new TwitterImageRewriter(httpClient);
         final TwitterSlideshowImageRewriter twitterSlideshowImageRewriter = new TwitterSlideshowImageRewriter(httpClient);
         final LinkRewriter linkRewriter = new LinkRewriter(new RedirectFinder());
         return new CompositeRewriter(asList(
                 cloudappRewriter,
+                kingshitRewriter,
                 instagramRewriter,
                 linkRewriter,
                 twitterImageRewriter,
