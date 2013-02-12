@@ -6,6 +6,7 @@ import com.d2fn.jester.config.JesterConfiguration;
 import com.d2fn.jester.plugin.Plugin;
 import com.d2fn.jester.plugin.RecallPlugin;
 import com.d2fn.jester.plugin.RewritingPlugin;
+import com.d2fn.jester.plugin.WhoAreYouPlugin;
 import com.d2fn.jester.plugin.gis.GoogleImageSearchPlugin;
 import com.d2fn.jester.plugin.sensu.SensuPlugin;
 import com.d2fn.jester.plugin.twitter.TwitterPlugin;
@@ -54,6 +55,7 @@ public class Jester extends Service<JesterConfiguration> {
         final SentenceRewriter sentenceRewriter = new SentenceRewriter(compositeRewriter);
 
         final Collection<Plugin> plugins = Lists.newArrayList();
+        plugins.add(new WhoAreYouPlugin());
         plugins.add(new GoogleImageSearchPlugin(httpClient));
         plugins.add(new TwitterPlugin(httpClient, sentenceRewriter));
         plugins.add(new RecallPlugin(bdbEnv, httpClient));
